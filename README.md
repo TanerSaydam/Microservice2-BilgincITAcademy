@@ -4,8 +4,8 @@
 - [x] Microservice nedir?
 - [x] Database per Service & Data Ownership
 - [x] Category WebApi oluşturalım
-- [ ] Category model için Create/Read işlemleri
-- [ ] API Versioning
+- [x] Category model için Create/Read işlemleri
+- [x] API Versioning
 - [ ] OpenAPI ve Scalar ile endpoint dokümantasyonu
 - [ ] Health Check ile uygulama sağlık kontrolü
 - [ ] CORS policy

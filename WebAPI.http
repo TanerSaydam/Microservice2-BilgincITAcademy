@@ -1,0 +1,15 @@
+GET http://localhost:5125/categories/v1
+
+### 
+POST http://localhost:5125/
+Content-Type: application/json
+
+{
+  "name":"Kategori 2"
+}
+
+###
+GET http://localhost:5125/api/v1/values
+
+###
+GET http://localhost:5125/api/values?api-version=1
