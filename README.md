@@ -1,4 +1,4 @@
-﻿﻿# Microservice Eğitim İçeriği
+﻿# Microservice Eğitim İçeriği
 
 - [ ] Architectural patterns
 - [ ] Microservice nedir?
