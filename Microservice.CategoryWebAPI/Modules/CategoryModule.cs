@@ -18,7 +18,7 @@ public sealed class CategoryModule : ICarterModule
         //    .Build();
 
         //var app = group.MapGroup("categories/v{version:apiVersion}").WithApiVersionSet(versionSet);        
-        var app = group.MapGroup("categories");
+        var app = group.MapGroup("categories").WithTags("Categories");
 
         app.MapGet(string.Empty, async (
             ApplicationDbContext dbContext,

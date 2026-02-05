@@ -6,11 +6,11 @@
 - [x] Category WebApi oluşturalım
 - [x] Category model için Create/Read işlemleri
 - [x] API Versioning
-- [ ] OpenAPI ve Scalar ile endpoint dokümantasyonu
-- [ ] Health Check ile uygulama sağlık kontrolü
-- [ ] CORS policy
-- [ ] Product WebApi oluşturalım
-- [ ] Product Create/Read işlemleri
+- [x] OpenAPI ve Scalar ile endpoint dokümantasyonu
+- [x] Health Check ile uygulama sağlık kontrolü
+- [x] CORS policy
+- [x] Product WebApi oluşturalım
+- [x] Product Create/Read işlemleri
 - [ ] Response Compression
 - [ ] Service Discovery Pattern (HashiCorp Consul)
 - [ ] Resilience Pattern (Polly)

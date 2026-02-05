@@ -4,4 +4,5 @@
     <File Path="WebAPI.http" />
   </Folder>
   <Project Path="Microservice.CategoryWebAPI/Microservice.CategoryWebAPI.csproj" Id="45c806b1-4ca4-477d-a836-32ed1ae99d6f" />
+  <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" Id="fd2ddf78-c898-4f54-b060-7144c8a527e6" />
 </Solution>

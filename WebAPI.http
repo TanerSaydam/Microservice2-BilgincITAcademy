@@ -1,15 +1,13 @@
-GET http://localhost:5125/categories/v1
+GET http://localhost:5003/categories
 
 ### 
-POST http://localhost:5125/
+POST http://localhost:5004/products
 Content-Type: application/json
 
-{
-  "name":"Kategori 2"
+{  
+  "name":"Ürün 1",
+  "categoryId":"019c2cc8-42b7-73c1-8c4a-32a734044835"
 }
 
 ###
-GET http://localhost:5125/api/v1/values
-
-###
-GET http://localhost:5125/api/values?api-version=1
+GET http://localhost:5004/products
