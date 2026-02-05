@@ -12,7 +12,7 @@
 - [x] Product WebApi oluşturalım
 - [x] Product Create/Read işlemleri
 - [x] Response Compression
-- [ ] Service Discovery Pattern (HashiCorp Consul)
+- [x] Service Discovery Pattern (HashiCorp Consul)
 - [ ] Resilience Pattern (Polly)
 - [ ] Docker image oluşturma
 - [ ] Docker compose ile projeleri ayağa kaldıralım

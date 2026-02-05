@@ -4,6 +4,7 @@ using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Dtos;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Common.Discovery;
 
 namespace Microservice.ProductWebAPI.Modules;
 
@@ -15,6 +16,7 @@ public sealed class ProductModule : ICarterModule
 
         app.MapGet(string.Empty, async (
             IHttpClientFactory httpClientFactory,
+            IDiscoveryClient discoveryClient,
             ApplicationDbContext dbContext,
             CancellationToken cancellationToken) =>
         {
@@ -27,19 +29,29 @@ public sealed class ProductModule : ICarterModule
                 Name = s.Name,
                 CategoryId = s.CategoryId,
             })
-            .ToListAsync(cancellationToken);
+            .ToListAsync(default);
 
             //var categoryIds = res.Select(s => s.CategoryId).ToHashSet();
 
+            var services = await discoveryClient.GetInstancesAsync("CategoryWebAPI", cancellationToken);
+
+            var firstService = services.FirstOrDefault();
+            if (firstService is null)
+            {
+                return Results.NotFound();
+            }
+
+            var categoryUri = firstService!.Uri + "categories";
+
             var http = httpClientFactory.CreateClient();
-            var categories = await http.GetFromJsonAsync<List<CategoryDto>>("http://localhost:5003/categories");
+            var categories = await http.GetFromJsonAsync<List<CategoryDto>>(categoryUri, cancellationToken);
 
             foreach (var product in res)
             {
                 product.CategoryName = categories?.FirstOrDefault(p => p.Id == product.CategoryId)?.Name ?? "";
             }
 
-            return res;
+            return Results.Ok(res);
         });
 
         app.MapPost(string.Empty, async (

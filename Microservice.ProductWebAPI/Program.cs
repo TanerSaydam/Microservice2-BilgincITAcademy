@@ -1,6 +1,7 @@
 using Carter;
 using Microservice.ProductWebAPI.Context;
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Discovery.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddCarter();
 
 builder.Services.AddResponseCompression(res => res.EnableForHttps = true);
+
+builder.Services.AddConsulDiscoveryClient();
 
 builder.Services.AddCors();
 
