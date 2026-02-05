@@ -4,6 +4,7 @@ using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Dtos;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Polly.Registry;
 using Steeltoe.Common.Discovery;
 
 namespace Microservice.ProductWebAPI.Modules;
@@ -17,6 +18,7 @@ public sealed class ProductModule : ICarterModule
         app.MapGet(string.Empty, async (
             IHttpClientFactory httpClientFactory,
             IDiscoveryClient discoveryClient,
+            ResiliencePipelineProvider<string> resiliencePipelineProvider,
             ApplicationDbContext dbContext,
             CancellationToken cancellationToken) =>
         {
@@ -31,20 +33,31 @@ public sealed class ProductModule : ICarterModule
             })
             .ToListAsync(default);
 
+            //var pipeline = resiliencePipelineProvider.GetPipeline("http");
+            var pipeline = MyExentions.HttpPipeline;
+
             //var categoryIds = res.Select(s => s.CategoryId).ToHashSet();
 
-            var services = await discoveryClient.GetInstancesAsync("CategoryWebAPI", cancellationToken);
+            //var services = await discoveryClient.GetInstancesAsync("CategoryWebAPI", cancellationToken);
 
-            var firstService = services.FirstOrDefault();
-            if (firstService is null)
-            {
-                return Results.NotFound();
-            }
+            //var firstService = services.FirstOrDefault();
+            //if (firstService is null)
+            //{
+            //    return Results.NotFound();
+            //}
 
-            var categoryUri = firstService!.Uri + "categories";
+            //var categoryUri = firstService!.Uri + "categories";
+            var categoryUri = "http://localhost:5003/categories";
 
             var http = httpClientFactory.CreateClient();
-            var categories = await http.GetFromJsonAsync<List<CategoryDto>>(categoryUri, cancellationToken);
+
+            var message = await MyExentions.HttpPipeline.ExecuteAsync(async ct => await http.GetAsync(categoryUri, cancellationToken));
+            var categories = await message.Content.ReadFromJsonAsync<List<CategoryDto>>();
+            //var categories = await pipeline.ExecuteAsync(async (callback, state) =>
+            //{
+            //    return await http.GetFromJsonAsync<List<CategoryDto>>(categoryUri, cancellationToken);
+            //});
+            //var categories = await http.GetFromJsonAsync<List<CategoryDto>>(categoryUri, cancellationToken);
 
             foreach (var product in res)
             {

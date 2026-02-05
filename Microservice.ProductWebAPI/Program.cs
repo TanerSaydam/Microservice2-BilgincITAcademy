@@ -1,6 +1,9 @@
 using Carter;
+using FluentEmail.Core;
+using Microservice.ProductWebAPI;
 using Microservice.ProductWebAPI.Context;
 using Microsoft.EntityFrameworkCore;
+using Polly.Registry;
 using Steeltoe.Discovery.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +23,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseSqlServer(con);
 });
 
+builder.Services.AddFluentEmail("info@test.com").AddSmtpSender("localhost", 25);
+
+builder.Services.AddPollyPipeline();
+
 var app = builder.Build();
 
 app.UseCors(x => x
@@ -31,5 +38,14 @@ app.UseCors(x => x
 app.UseResponseCompression();
 
 app.MapCarter();
+
+app.MapGet("test", async (
+    IFluentEmail fluentEmail,
+    ResiliencePipelineProvider<string> resiliencePipelineProvider
+    ) =>
+{
+    var pipeline = resiliencePipelineProvider.GetPipeline("smtp");
+    await pipeline.ExecuteAsync(async callback => await fluentEmail.To("tanersaydam@gmail.com").Subject("Test").Body("Hello world").SendAsync());
+});
 
 app.Run();

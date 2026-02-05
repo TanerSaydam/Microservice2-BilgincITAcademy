@@ -11,3 +11,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5004/products
+
+###
+GET http://localhost:5004/test

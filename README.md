@@ -13,7 +13,7 @@
 - [x] Product Create/Read işlemleri
 - [x] Response Compression
 - [x] Service Discovery Pattern (HashiCorp Consul)
-- [ ] Resilience Pattern (Polly)
+- [x] Resilience Pattern (Polly)
 - [ ] Docker image oluşturma
 - [ ] Docker compose ile projeleri ayağa kaldıralım
 - [ ] Gateway nedir?
