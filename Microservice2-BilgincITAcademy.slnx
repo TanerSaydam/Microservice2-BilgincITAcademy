@@ -2,4 +2,5 @@
   <Folder Name="/Solution Items/">
     <File Path="README.md" />
   </Folder>
+  <Project Path="Microservice.CategoryWebAPI/Microservice.CategoryWebAPI.csproj" Id="45c806b1-4ca4-477d-a836-32ed1ae99d6f" />
 </Solution>

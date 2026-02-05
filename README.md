@@ -1,9 +1,9 @@
 ﻿# Microservice Eğitim İçeriği
 
-- [ ] Architectural patterns
-- [ ] Microservice nedir?
-- [ ] Database per Service & Data Ownership
-- [ ] Category WebApi oluşturalım
+- [x] Architectural patterns
+- [x] Microservice nedir?
+- [x] Database per Service & Data Ownership
+- [x] Category WebApi oluşturalım
 - [ ] Category model için Create/Read işlemleri
 - [ ] API Versioning
 - [ ] OpenAPI ve Scalar ile endpoint dokümantasyonu
