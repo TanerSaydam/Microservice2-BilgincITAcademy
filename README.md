@@ -11,7 +11,7 @@
 - [x] CORS policy
 - [x] Product WebApi oluşturalım
 - [x] Product Create/Read işlemleri
-- [ ] Response Compression
+- [x] Response Compression
 - [ ] Service Discovery Pattern (HashiCorp Consul)
 - [ ] Resilience Pattern (Polly)
 - [ ] Docker image oluşturma
