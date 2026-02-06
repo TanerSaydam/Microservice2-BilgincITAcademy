@@ -3,6 +3,7 @@ using Carter;
 using Microservice.CategoryWebAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Steeltoe.Discovery.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddApiVersioning(action =>
     action.ReportApiVersions = true;
 }).AddApiExplorer();
 
-//builder.Services.AddConsulDiscoveryClient();
+builder.Services.AddConsulDiscoveryClient();
 
 builder.Services.AddOpenApi();
 

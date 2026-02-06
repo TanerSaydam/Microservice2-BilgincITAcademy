@@ -38,16 +38,16 @@ public sealed class ProductModule : ICarterModule
 
             //var categoryIds = res.Select(s => s.CategoryId).ToHashSet();
 
-            //var services = await discoveryClient.GetInstancesAsync("CategoryWebAPI", cancellationToken);
+            var services = await discoveryClient.GetInstancesAsync("CategoryWebAPI", cancellationToken);
 
-            //var firstService = services.FirstOrDefault();
-            //if (firstService is null)
-            //{
-            //    return Results.NotFound();
-            //}
+            var firstService = services.FirstOrDefault();
+            if (firstService is null)
+            {
+                return Results.NotFound();
+            }
 
-            //var categoryUri = firstService!.Uri + "categories";
-            var categoryUri = "http://localhost:5003/categories";
+            var categoryUri = firstService!.Uri + "categories";
+            //var categoryUri = "http://localhost:5003/categories";
 
             var http = httpClientFactory.CreateClient();
 

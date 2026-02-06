@@ -1,0 +1,33 @@
+services:
+  consul:
+   image: hashicorp/consul:latest
+   ports:
+     - 8500:8500
+   container_name: consul-container
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: sqlpreview
+    hostname: sqlpreview
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password.123"
+      MSSQL_PID: "Evaluation"
+    restart: unless-stopped
+
+  category:
+   build:
+    dockerfile: Microservice.CategoryWebAPI/Dockerfile
+   ports:
+    - 5003:8080
+   container_name: category-webapi
+
+  product:
+   build:
+    dockerfile: Microservice.ProductWebAPI/Dockerfile
+   ports:
+    - 5004:8080
+   container_name: product-webapi
+    

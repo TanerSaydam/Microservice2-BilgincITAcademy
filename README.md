@@ -14,8 +14,8 @@
 - [x] Response Compression
 - [x] Service Discovery Pattern (HashiCorp Consul)
 - [x] Resilience Pattern (Polly)
-- [ ] Docker image oluşturma
-- [ ] Docker compose ile projeleri ayağa kaldıralım
+- [x] Docker image oluşturma
+- [x] Docker compose ile projeleri ayağa kaldıralım
 - [ ] Gateway nedir?
 - [ ] Ocelot nedir?
 - [ ] Gateway projesi oluşturup Ocelot yapısını kuralım
