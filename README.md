@@ -69,6 +69,38 @@ Steeltoe.Discovery.Consul
 
 ---
 
+## MSSQL
+
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Password.123" -e "MSSQL_PID=Evaluation" -p 1433:1433  --name sqlpreview --hostname sqlpreview -d mcr.microsoft.com/mssql/server:2025-latest
+```
+
+```yml
+sqlpreview:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: sqlpreview
+    hostname: sqlpreview
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Password.123"
+      MSSQL_PID: "Evaluation"
+    restart: unless-stopped
+```
+
+```powershell
+#Development
+Data Source=localhost;Initial Catalog=TestDb;User ID=sa;Password=Password.123;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30
+```
+
+```powershell
+#Production
+Server=host.docker.internal,1433;Initial Catalog=TestDb;User ID=sa;Password=Password.123;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30
+```
+
+---
+
 ## Ocelot
 
 ```dash
@@ -90,6 +122,14 @@ Yarp.ReverseProxy
 
 ```dash
 https://learn.microsoft.com/tr-tr/aspnet/core/fundamentals/servers/yarp/getting-started?view=aspnetcore-10.0
+```
+
+---
+
+## Keycloack
+
+```dash
+docker run -d --name keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
 ```
 
 ---
