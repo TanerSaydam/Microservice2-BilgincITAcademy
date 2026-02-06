@@ -17,6 +17,16 @@ services:
       MSSQL_PID: "Evaluation"
     restart: unless-stopped
 
+  keycloak:
+   image: quay.io/keycloak/keycloak:latest
+   command: start-dev
+   environment:
+    KEYCLOAK_ADMIN: admin
+    KEYCLOAK_ADMIN_PASSWORD: admin
+   ports:
+    - 8080:8080
+   container_name: keycloak
+
   ocelot:
    build:
     dockerfile: Microservice.OcelotGateway/Dockerfile
@@ -51,4 +61,18 @@ services:
    ports:
     - 6004:8080
    container_name: product2-webapi
+
+  category3:
+   build:
+    dockerfile: Microservice.CategoryWebAPI/Dockerfile
+   ports:
+    - 7003:8080
+   container_name: category3-webapi
+
+  auth:
+   build:
+    dockerfile: Microservice.AuthWebAPI/Dockerfile
+   ports:
+    - 9000:8080
+   container_name: auth-webapi
     

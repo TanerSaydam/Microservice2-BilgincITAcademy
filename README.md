@@ -21,7 +21,7 @@
 - [x] Gateway projesi oluşturup Ocelot yapısını kuralım
   - [x] RateLimit
   - [x] LoadBalance
-  - [ ] Service Discovery  
+  - [x] Service Discovery  
   - [ ] Authentication
   - [ ] Authorization
 - [ ] YARP ile Gateway

@@ -6,15 +6,20 @@
       "DownstreamPathTemplate": "/categories/{catchAll}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "category1",
-          "Port": 8080
-        },
-        {
-          "Host": "category2",
-          "Port": 8080
-        }
+        //{
+        //  "Host": "category1",
+        //  "Port": 8080
+        //},
+        //{
+        //  "Host": "category2",
+        //  "Port": 8080
+        //}
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": "Bearer",
+        "AllowedScopes": []
+      },
+      "ServiceName": "CategoryWebAPI",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       }
@@ -25,28 +30,36 @@
       "DownstreamPathTemplate": "/products/{catchAll}",
       "DownstreamScheme": "http",
       //"Key": "R1",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "product1",
-          "Port": 8080
-        },
-        {
-          "Host": "product2",
-          "Port": 8080
-        }
-      ],
+      "DownstreamHostAndPorts": [],
+      "ServiceName": "ProductWebAPI",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"
       }
+    },
+    {
+      "UpstreamPathTemplate": "/api/auth/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "auth",
+          "Port": 8080
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {
-    "RateLimitOptions": {
-      "ClientIdHeader": "ClientId",      
-      //"RouteKeys": [ "R1" ],
-      "Limit": 100,
-      "Period": "1s",
-      "StatusCode": 429
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500
     }
+    //"RateLimitOptions": {
+    //  "ClientIdHeader": "ClientId",
+    //  //"RouteKeys": [ "R1" ],
+    //  "Limit": 100,
+    //  "Period": "1s",
+    //  "StatusCode": 429
+    //}
   }
 }
