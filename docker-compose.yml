@@ -17,17 +17,38 @@ services:
       MSSQL_PID: "Evaluation"
     restart: unless-stopped
 
-  category:
+  ocelot:
+   build:
+    dockerfile: Microservice.OcelotGateway/Dockerfile
+   ports:
+    - 5001:8080
+   container_name: ocelot-gateway
+
+  category1:
    build:
     dockerfile: Microservice.CategoryWebAPI/Dockerfile
    ports:
     - 5003:8080
-   container_name: category-webapi
+   container_name: category1-webapi
 
-  product:
+  product1:
    build:
     dockerfile: Microservice.ProductWebAPI/Dockerfile
    ports:
     - 5004:8080
-   container_name: product-webapi
+   container_name: product1-webapi
+
+  category2:
+   build:
+    dockerfile: Microservice.CategoryWebAPI/Dockerfile
+   ports:
+    - 6003:8080
+   container_name: category2-webapi
+
+  product2:
+   build:
+    dockerfile: Microservice.ProductWebAPI/Dockerfile
+   ports:
+    - 6004:8080
+   container_name: product2-webapi
     

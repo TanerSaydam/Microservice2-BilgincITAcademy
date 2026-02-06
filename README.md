@@ -16,11 +16,11 @@
 - [x] Resilience Pattern (Polly)
 - [x] Docker image oluşturma
 - [x] Docker compose ile projeleri ayağa kaldıralım
-- [ ] Gateway nedir?
-- [ ] Ocelot nedir?
-- [ ] Gateway projesi oluşturup Ocelot yapısını kuralım
-  - [ ] RateLimit
-  - [ ] LoadBalance
+- [x] Gateway nedir?
+- [x] Ocelot nedir?
+- [x] Gateway projesi oluşturup Ocelot yapısını kuralım
+  - [x] RateLimit
+  - [x] LoadBalance
   - [ ] Service Discovery  
   - [ ] Authentication
   - [ ] Authorization

@@ -1,0 +1,52 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/categories/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/categories/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "category1",
+          "Port": 8080
+        },
+        {
+          "Host": "category2",
+          "Port": 8080
+        }
+      ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/api/products/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/products/{catchAll}",
+      "DownstreamScheme": "http",
+      //"Key": "R1",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "product1",
+          "Port": 8080
+        },
+        {
+          "Host": "product2",
+          "Port": 8080
+        }
+      ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "RateLimitOptions": {
+      "ClientIdHeader": "ClientId",      
+      //"RouteKeys": [ "R1" ],
+      "Limit": 100,
+      "Period": "1s",
+      "StatusCode": 429
+    }
+  }
+}
