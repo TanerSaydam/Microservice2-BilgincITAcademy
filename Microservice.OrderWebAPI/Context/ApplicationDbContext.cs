@@ -9,4 +9,5 @@ public sealed class ApplicationDbContext : DbContext
     {
     }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Idempotency> Idempotencies { get; set; }
 }

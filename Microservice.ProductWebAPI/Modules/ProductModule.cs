@@ -27,7 +27,7 @@ public sealed class ProductModule : ICarterModule
                 Id = s.Id,
                 Name = s.Name,
                 CategoryId = s.CategoryId,
-                Quantity = s.Quantity,
+                Quantity = s.Stock,
             })
             .ToListAsync(default);
 
@@ -54,6 +54,24 @@ public sealed class ProductModule : ICarterModule
             await dbContext.SaveChangesAsync(cancellationToken);
 
             return product.Id;
+        });
+
+        app.MapPut(string.Empty, async (
+            ProductStockUpdateDto request,
+            ApplicationDbContext dbContext,
+            CancellationToken cancellationToken) =>
+        {
+            Product? product = await dbContext.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId, cancellationToken);
+            if (product is null)
+            {
+                return Results.NotFound();
+            }
+
+            product.Stock -= request.Quantity;
+            dbContext.Update(product);
+            await dbContext.SaveChangesAsync(cancellationToken);
+
+            return Results.Ok();
         });
     }
 }
