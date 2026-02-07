@@ -6,4 +6,5 @@ public sealed record ProductDto
     public string Name { get; set; } = default!;
     public Guid CategoryId { get; set; }
     public string CategoryName { get; set; } = default!;
+    public int Quantity { get; set; }
 }

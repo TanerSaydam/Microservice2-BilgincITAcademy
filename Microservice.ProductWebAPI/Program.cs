@@ -2,6 +2,7 @@ using Carter;
 using FluentEmail.Core;
 using Microservice.ProductWebAPI;
 using Microservice.ProductWebAPI.Context;
+using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Polly.Registry;
 using Steeltoe.Discovery.Consul;
@@ -38,6 +39,22 @@ app.UseCors(x => x
 app.UseResponseCompression();
 
 app.MapCarter();
+
+app.MapGet("create", (ApplicationDbContext dbContext) =>
+{
+    Product product = new()
+    {
+        Name = "Product 1",
+        Quantity = 10,
+        Id = Guid.Parse("3f8242de-a459-4aa6-aed9-e278453ca380"),
+        CategoryId = Guid.Parse("cdebccc6-8ebc-4ffe-9e3b-76cd181dda57")
+    };
+
+    dbContext.Add(product);
+    dbContext.SaveChanges();
+
+    return Results.Ok(new { Message = "Product created" });
+});
 
 app.MapGet("test", async (
     IFluentEmail fluentEmail,

@@ -28,7 +28,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 builder.Services.AddAuthorization(x =>
 {
     x.AddPolicy("require-authentication", policy => policy.RequireAuthenticatedUser());
-    //x.AddPolicy("UserType", policy => policy.RequireClaim("UserType"));
+    x.AddPolicy("MyPolicy", p => p.RequireClaim("name", "Taner Saydam"));
 });
 
 var app = builder.Build();
@@ -36,6 +36,9 @@ var app = builder.Build();
 app.MapGet("", () => "Hello world from YARP");
 
 app.UseRateLimiter();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapReverseProxy();
 

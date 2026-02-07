@@ -27,8 +27,8 @@
 - [x] YARP ile Gateway
   - [x] LoadBalance
   - [x] RateLimit
-  - [ ] Authentication
-  - [ ] Authorization
+  - [x] Authentication
+  - [x] Authorization
   - [x] HealthCheck
 - [x] Ocelot vs YARP
 - [x] Aspire

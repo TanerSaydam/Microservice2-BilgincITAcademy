@@ -4,7 +4,6 @@ using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Dtos;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
 
 namespace Microservice.ProductWebAPI.Modules;
 
@@ -28,18 +27,15 @@ public sealed class ProductModule : ICarterModule
                 Id = s.Id,
                 Name = s.Name,
                 CategoryId = s.CategoryId,
+                Quantity = s.Quantity,
             })
             .ToListAsync(default);
 
-            var categoryUri = "http://category1:8080/categories";
-
+            var categoryUri = "http://localhost:5003/categories";
             var http = httpClientFactory.CreateClient();
-
-            var token = httpContextAccessor.HttpContext?.Request.Headers.Authorization.ToString() ?? "";
-
-            http.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(token);
+            //var token = httpContextAccessor.HttpContext?.Request.Headers.Authorization.ToString() ?? "";
+            //http.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(token);
             var categories = await http.GetFromJsonAsync<List<CategoryDto>>(categoryUri, cancellationToken);
-
             foreach (var product in res)
             {
                 product.CategoryName = categories?.FirstOrDefault(p => p.Id == product.CategoryId)?.Name ?? "";
