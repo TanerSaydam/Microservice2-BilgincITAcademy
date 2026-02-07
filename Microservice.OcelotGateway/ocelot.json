@@ -10,6 +10,9 @@
         "AuthenticationProviderKeys": [ "Bearer" ],
         "AllowedScopes": []
       },
+      //"RouteClaimsRequirement": {
+      //  "realm_access:roles": "default-roles-myrealm"
+      //},
       "ServiceName": "CategoryWebAPI",
       "LoadBalancerOptions": {
         "Type": "RoundRobin"

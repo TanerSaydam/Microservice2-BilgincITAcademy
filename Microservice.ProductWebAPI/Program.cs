@@ -48,4 +48,4 @@ app.MapGet("test", async (
     await pipeline.ExecuteAsync(async callback => await fluentEmail.To("tanersaydam@gmail.com").Subject("Test").Body("Hello world").SendAsync());
 });
 
-app.Run(); //09:15 derse baþlayacaðýz
+app.Run();

@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Carter;
-using Keycloak.AuthServices.Authentication;
 using Microservice.CategoryWebAPI.Context;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Steeltoe.Discovery.Consul;
@@ -30,8 +30,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 });
 builder.Services.AddCors();
 
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
-builder.Services.AddAuthorization();
+builder.Services.AddRateLimiter(conf =>
+{
+    conf.AddFixedWindowLimiter("fixed", opt =>
+    {
+        opt.Window = TimeSpan.FromSeconds(10);
+        opt.PermitLimit = 1;
+        //opt.QueueLimit = 1;
+        //opt.QueueProcessingOrder = QueueProcessingOrder.NewestFirst;
+    });
+});
+
+//builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+//builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -53,6 +64,8 @@ app.UseCors(x => x
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRateLimiter();
 
 app.MapCarter();
 app.MapControllers();

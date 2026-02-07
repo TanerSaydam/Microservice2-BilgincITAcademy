@@ -23,10 +23,10 @@
   - [x] LoadBalance
   - [x] Service Discovery  
   - [x] Authentication
-  - [ ] Authorization
-- [ ] YARP ile Gateway
-  - [ ] LoadBalance
-  - [ ] RateLimit
+  - [x] Authorization
+- [x] YARP ile Gateway
+  - [x] LoadBalance
+  - [x] RateLimit
   - [ ] Authentication
   - [ ] Authorization
   - [ ] HealthCheck

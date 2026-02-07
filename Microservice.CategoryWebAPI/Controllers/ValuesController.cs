@@ -11,6 +11,7 @@ namespace Microservice.CategoryWebAPI.Controllers;
 public class ValuesController : ControllerBase //api-version=1
 {
     [HttpGet]
+    //[MyAuthorize("getall")]
     //[MapToApiVersion(1)]
     [ApiVersion(1, Deprecated = true)]
     public IActionResult Get1()
