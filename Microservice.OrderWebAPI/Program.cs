@@ -1,4 +1,5 @@
 using Microservice.OrderWebAPI.Context;
+using Microservice.OrderWebAPI.Dtos;
 using Microservice.OrderWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,22 +13,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 
 var app = builder.Build();
 
-app.MapGet("update-database", (ApplicationDbContext dbContext) =>
-{
-    dbContext.Database.Migrate();
-});
+//app.MapGet("update-database", (ApplicationDbContext dbContext) =>
+//{
+//    dbContext.Database.Migrate();
+//});
 
-app.MapGet("create", (ApplicationDbContext dbContext) =>
+app.MapPost(string.Empty, (OrderCreateDto request, ApplicationDbContext dbContext) =>
 {
     Order order = new()
     {
-        ProductId = Guid.CreateVersion7()
+        ProductId = request.ProductId,
+        Quantity = request.Quantity
     };
     dbContext.Add(order);
     dbContext.SaveChanges();
 });
 
-app.MapGet("get-all", (ApplicationDbContext dbContext) =>
+app.MapGet(string.Empty, (ApplicationDbContext dbContext) =>
 {
     return dbContext.Orders.ToList();
 });
