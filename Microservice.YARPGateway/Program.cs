@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,24 @@ builder.Services.AddRateLimiter(conf =>
 {
     conf.AddFixedWindowLimiter("fixed", opt =>
     {
-        opt.Window = TimeSpan.FromSeconds(10);
-        opt.PermitLimit = 1;
-        //opt.QueueLimit = 1;
-        //opt.QueueProcessingOrder = QueueProcessingOrder.NewestFirst;
+        opt.Window = TimeSpan.FromSeconds(1);
+        opt.PermitLimit = 100;
+        opt.QueueLimit = 100;
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
     });
+});
+
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    string authority = builder.Configuration.GetSection("Keycloak:authority")!.Value!;
+    options.Authority = authority;
+    options.TokenValidationParameters.ValidateAudience = false;
+    options.RequireHttpsMetadata = false;
+});
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("require-authentication", policy => policy.RequireAuthenticatedUser());
+    //x.AddPolicy("UserType", policy => policy.RequireClaim("UserType"));
 });
 
 var app = builder.Build();

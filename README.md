@@ -29,16 +29,16 @@
   - [x] RateLimit
   - [ ] Authentication
   - [ ] Authorization
-  - [ ] HealthCheck
-- [ ] Ocelot vs YARP
-- [ ] Order WebAPI oluşturalım ve Create işlemi yapalım
+  - [x] HealthCheck
+- [x] Ocelot vs YARP
+- [x] Aspire
+- [x] Order WebAPI oluşturalım ve Create işlemi yapalım
 - [ ] Idempotency
 - [ ] Payment WebAPI oluşturalım ve Create metodu yazalım
 - [ ] Transaction
 - [ ] Sync (HTTP/gRPC) vs Async (Message Broker) Communication
 - [ ] Saga Pattern
 - [ ] Observability (with OpenTelemetry and Jaeger)
-- [ ] Aspire
 
 ---
 

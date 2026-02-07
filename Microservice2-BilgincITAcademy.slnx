@@ -7,9 +7,11 @@
     <File Path="README.md" />
     <File Path="WebAPI.http" />
   </Folder>
+  <Project Path="Microservice.AppHost/Microservice.AppHost.csproj" Id="ccc26b97-4be0-4ca6-a3fb-e2db3f2de9a1" />
   <Project Path="Microservice.AuthWebAPI/Microservice.AuthWebAPI.csproj" />
   <Project Path="Microservice.CategoryWebAPI/Microservice.CategoryWebAPI.csproj" Id="45c806b1-4ca4-477d-a836-32ed1ae99d6f" />
   <Project Path="Microservice.OcelotGateway/Microservice.OcelotGateway.csproj" Id="d46d02fe-9765-47fa-a3ba-0c0e18f21e04" />
+  <Project Path="Microservice.OrderWebAPI/Microservice.OrderWebAPI.csproj" Id="63cb738b-28cf-401a-b1ed-ef3b0cb2dad0" />
   <Project Path="Microservice.ProductWebAPI/Microservice.ProductWebAPI.csproj" Id="fd2ddf78-c898-4f54-b060-7144c8a527e6" />
   <Project Path="Microservice.YARPGateway/Microservice.YARPGateway.csproj" Id="bb743e36-2aea-41a9-b9c2-3706410c108c" />
 </Solution>
