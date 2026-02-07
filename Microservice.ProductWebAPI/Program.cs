@@ -45,6 +45,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseSqlServer(con);
 });
 
+builder.AddServiceDefaults();
+
 builder.Services.AddFluentEmail("info@test.com").AddSmtpSender("localhost", 25);
 
 builder.Services.AddPollyPipeline();

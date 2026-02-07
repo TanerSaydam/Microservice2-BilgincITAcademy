@@ -15,6 +15,8 @@ builder.Services.AddApiVersioning(action =>
     action.ReportApiVersions = true;
 }).AddApiExplorer();
 
+builder.AddServiceDefaults();
+
 builder.Services.AddConsulDiscoveryClient();
 
 builder.Services.AddOpenApi();

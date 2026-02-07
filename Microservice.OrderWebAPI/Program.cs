@@ -35,6 +35,8 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+builder.AddServiceDefaults();
+
 var app = builder.Build();
 
 app.MapGet("update-database", (ApplicationDbContext dbContext) =>

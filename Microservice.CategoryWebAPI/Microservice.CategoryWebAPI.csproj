@@ -21,4 +21,8 @@
     <PackageReference Include="Steeltoe.Discovery.Consul" Version="4.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Microserive.ServiceDefaults\Microserive.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>

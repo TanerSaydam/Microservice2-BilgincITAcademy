@@ -7,6 +7,7 @@
     <File Path="README.md" />
     <File Path="WebAPI.http" />
   </Folder>
+  <Project Path="Microserive.ServiceDefaults/Microserive.ServiceDefaults.csproj" Id="86402b2c-ff60-48f8-8e4d-5ca7262df63d" />
   <Project Path="Microservice.AppHost/Microservice.AppHost.csproj" Id="ccc26b97-4be0-4ca6-a3fb-e2db3f2de9a1" />
   <Project Path="Microservice.AuthWebAPI/Microservice.AuthWebAPI.csproj" />
   <Project Path="Microservice.CategoryWebAPI/Microservice.CategoryWebAPI.csproj" Id="45c806b1-4ca4-477d-a836-32ed1ae99d6f" />

@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Microserive.ServiceDefaults\Microserive.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Microservice.Shared\Microservice.Shared.csproj" />
   </ItemGroup>
 
