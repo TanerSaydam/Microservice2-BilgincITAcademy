@@ -1,6 +1,8 @@
 using Carter;
 using FluentEmail.Core;
+using MassTransit;
 using Microservice.ProductWebAPI;
+using Microservice.ProductWebAPI.Consumers;
 using Microservice.ProductWebAPI.Context;
 using Microservice.ProductWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,25 @@ builder.Services.AddResponseCompression(res => res.EnableForHttps = true);
 builder.Services.AddConsulDiscoveryClient();
 
 builder.Services.AddCors();
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<OrderConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("order-product-qeue", e =>
+        {
+            e.ConfigureConsumer<OrderConsumer>(context);
+        });
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 {
@@ -65,4 +86,4 @@ app.MapGet("test", async (
     await pipeline.ExecuteAsync(async callback => await fluentEmail.To("tanersaydam@gmail.com").Subject("Test").Body("Hello world").SendAsync());
 });
 
-app.Run();
+app.Run(); //15:17 görüþelim

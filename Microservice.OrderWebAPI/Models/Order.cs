@@ -14,7 +14,7 @@ public sealed class Order
 
 public enum Status
 {
-    Pending = 0,
+    Pending,
     Completed = 1,
     Fail = 2,
 }

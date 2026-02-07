@@ -14,6 +14,14 @@ var mssql = builder.AddSqlServer("mssql")
 
 var db = mssql.AddDatabase("OrderDb");
 
+var rabbitMq = builder.AddRabbitMQ("rabbitMQ", null, null, 5672)
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithImage("rabbitmq", "3-management")
+    .WithHttpEndpoint(port: 15672, targetPort: 15672, name: "management")
+    .WithEnvironment("RABBITMQ_DEFAULT_USER", "guest")
+    .WithEnvironment("RABBITMQ_DEFAULT_PASS", "guest")
+    ;
+
 builder.AddProject<Microservice_AuthWebAPI>("auth");
 builder.AddProject<Microservice_CategoryWebAPI>("category");
 builder.AddProject<Microservice_ProductWebAPI>("product");

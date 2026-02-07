@@ -36,7 +36,7 @@
 - [x] Idempotency
 - [x] Transaction
 - [x] Sync (HTTP/gRPC) vs Async (Message Broker) Communication
-- [ ] Saga Pattern
+- [x] Saga Pattern
 - [ ] Observability (with OpenTelemetry and Jaeger)
 
 ---

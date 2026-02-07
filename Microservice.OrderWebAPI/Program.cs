@@ -1,6 +1,9 @@
+using MassTransit;
+using Microservice.OrderWebAPI.Consumer;
 using Microservice.OrderWebAPI.Context;
 using Microservice.OrderWebAPI.Dtos;
 using Microservice.OrderWebAPI.Models;
+using Microservice.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +15,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("OrderDb"));
 });
 builder.Services.AddHttpClient();
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<ProductResultConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost", "/", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+
+        cfg.ReceiveEndpoint("product-result-order-qeue", e =>
+        {
+            e.ConfigureConsumer<ProductResultConsumer>(context);
+        });
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 
@@ -25,6 +47,7 @@ app.MapPost(string.Empty, async (
     HttpClient httpClient,
     [FromHeader(Name = "idempotency-key")] int idempotencyKey,
     ApplicationDbContext dbContext,
+    IPublishEndpoint publishEndpoint,
     CancellationToken cancellationToken) =>
 {
     var isIdempotencyExists = dbContext.Idempotencies.Any(p => p.Key == idempotencyKey);
@@ -40,19 +63,6 @@ app.MapPost(string.Empty, async (
         return Results.BadRequest("Ödeme baþarýsýz oldu");
     }
 
-    //productdan stock adedini düþ
-    var productReq = new
-    {
-        ProductId = request.ProductId,
-        Quantity = request.Quantity,
-    };
-    var message = await httpClient.PutAsJsonAsync("http://localhost:5004/products", productReq, cancellationToken);
-    if (!message.IsSuccessStatusCode)
-    {
-        //ödemeyi rollback yap
-        return Results.BadRequest("Something went wrong");
-    }
-
     Idempotency idempotency = new()
     {
         Key = idempotencyKey,
@@ -65,14 +75,10 @@ app.MapPost(string.Empty, async (
         Quantity = request.Quantity
     };
     dbContext.Add(order);
-
-    bool isFail = true;
-    if (isFail)
-    {
-        //hem ödemeyi iade et hem product adedini düzelt ya da rollback yap
-        throw new ArgumentException("something went wrong 2");
-    }
     dbContext.SaveChanges();
+
+    var queueRequest = new OrderCreateQueueDto(order.Id, request.ProductId, request.Quantity);
+    await publishEndpoint.Publish(queueRequest);
 
     return Results.Ok("Order is successful");
 });
