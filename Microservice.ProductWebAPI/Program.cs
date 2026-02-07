@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 builder.Services.AddCarter();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddResponseCompression(res => res.EnableForHttps = true);
 
 builder.Services.AddConsulDiscoveryClient();
@@ -48,4 +48,4 @@ app.MapGet("test", async (
     await pipeline.ExecuteAsync(async callback => await fluentEmail.To("tanersaydam@gmail.com").Subject("Test").Body("Hello world").SendAsync());
 });
 
-app.Run();
+app.Run(); //09:15 derse baþlayacaðýz

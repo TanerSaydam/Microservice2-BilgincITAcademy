@@ -22,7 +22,7 @@
   - [x] RateLimit
   - [x] LoadBalance
   - [x] Service Discovery  
-  - [ ] Authentication
+  - [x] Authentication
   - [ ] Authorization
 - [ ] YARP ile Gateway
   - [ ] LoadBalance

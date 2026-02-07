@@ -1,4 +1,3 @@
-using Keycloak.AuthServices.Authentication;
 using Microservice.OcelotGateway;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -11,7 +10,14 @@ builder.Services
     .AddOcelot(builder.Configuration)
     .AddConsul<MyConsulServiceBuilder>();
 
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    string authority = builder.Configuration.GetSection("Keycloak:authority")!.Value!;
+    options.Authority = authority;
+    options.TokenValidationParameters.ValidateAudience = false;
+    //options.TokenValidationParameters.ValidAudience = "account";
+    options.RequireHttpsMetadata = false; //sadece development ortamý için. Prod alacaksanýz burayý sil
+});
 builder.Services.AddAuthorization();
 
 var app = builder.Build();

@@ -5,18 +5,9 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/categories/{catchAll}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        //{
-        //  "Host": "category1",
-        //  "Port": 8080
-        //},
-        //{
-        //  "Host": "category2",
-        //  "Port": 8080
-        //}
-      ],
+      "DownstreamHostAndPorts": [],
       "AuthenticationOptions": {
-        "AuthenticationProviderKeys": "Bearer",
+        "AuthenticationProviderKeys": [ "Bearer" ],
         "AllowedScopes": []
       },
       "ServiceName": "CategoryWebAPI",
@@ -29,7 +20,7 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/products/{catchAll}",
       "DownstreamScheme": "http",
-      //"Key": "R1",
+      "Key": "R1",
       "DownstreamHostAndPorts": [],
       "ServiceName": "ProductWebAPI",
       "LoadBalancerOptions": {
@@ -53,13 +44,13 @@
     "ServiceDiscoveryProvider": {
       "Host": "consul",
       "Port": 8500
+    },
+    "RateLimitOptions": {
+      "ClientIdHeader": "ClientId",
+      "RouteKeys": [ "R1" ],
+      "Limit": 100,
+      "Period": "1s",
+      "StatusCode": 429
     }
-    //"RateLimitOptions": {
-    //  "ClientIdHeader": "ClientId",
-    //  //"RouteKeys": [ "R1" ],
-    //  "Limit": 100,
-    //  "Period": "1s",
-    //  "StatusCode": 429
-    //}
   }
 }

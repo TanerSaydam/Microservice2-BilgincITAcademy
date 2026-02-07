@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Carter;
+using Keycloak.AuthServices.Authentication;
 using Microservice.CategoryWebAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -29,16 +30,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 });
 builder.Services.AddCors();
 
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.MapOpenApi();
 app.MapScalarApiReference();
+
+app.Use((context, next) =>
+{
+    string token = context.Request.Headers!.Authorization!;
+    Console.WriteLine(token);
+    return next(context);
+});
 
 app.UseCors(x => x
 .AllowAnyHeader()
 .AllowAnyOrigin()
 .AllowAnyMethod()
 .SetPreflightMaxAge(TimeSpan.FromMinutes(10)));
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapCarter();
 app.MapControllers();

@@ -126,3 +126,16 @@ builder.Services.AddAuthorization(opt =>
     });
 }).AddKeycloakAuthorization(builder.Configuration);
 ```
+
+```csharp
+//For gateway
+builder.Services
+    .AddAuthentication()
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "http://localhost:8080/realms/myrealm";
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.RequireHttpsMetadata = false;
+    });
+builder.Services.AddAuthorization();
+```
